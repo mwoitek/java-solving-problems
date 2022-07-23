@@ -9,35 +9,31 @@ import edu.duke.Shape;
 public class PerimeterAssignmentRunner {
 
   public double getPerimeter(Shape s) {
-    // Start with totalPerim = 0
     double totalPerim = 0.0;
-    // Start wth prevPt = the last point
     Point prevPt = s.getLastPoint();
-    // For each point currPt in the shape,
     for (Point currPt : s.getPoints()) {
-      // Find distance from prevPt point to currPt
       double currDist = prevPt.distance(currPt);
-      // Update totalPerim by currDist
       totalPerim = totalPerim + currDist;
-      // Update prevPt to be currPt
       prevPt = currPt;
     }
-    // totalPerim is the answer
     return totalPerim;
   }
 
   public int getNumPoints(Shape s) {
-    // Put code here
-    return 0;
+    int numPoints = 0;
+    for (Point pt : s.getPoints()) {
+      numPoints += 1;
+    }
+    return numPoints;
   }
 
   public double getAverageLength(Shape s) {
-    // Put code here
-    return 0.0;
+    return getPerimeter(s) / getNumPoints(s);
   }
 
   public double getLargestSide(Shape s) {
-    // Put code here
+    //
+
     return 0.0;
   }
 
@@ -53,15 +49,20 @@ public class PerimeterAssignmentRunner {
 
   public String getFileWithLargestPerimeter() {
     // Put code here
-    File temp = null; // replace this code
-    return temp.getName();
+    // File temp = null; // replace this code
+    // return temp.getName();
+    return "temp.getName()";
   }
 
   public void testPerimeter() {
-    FileResource fr = new FileResource();
+    FileResource fr = new FileResource("../data/example1.txt");
     Shape s = new Shape(fr);
     double length = getPerimeter(s);
     System.out.println("perimeter = " + length);
+    int numPoints = getNumPoints(s);
+    System.out.println("number of points = " + numPoints);
+    double averageLength = getAverageLength(s);
+    System.out.println("the average length of a side in your shape is " + averageLength);
   }
 
   public void testPerimeterMultipleFiles() {
@@ -98,4 +99,5 @@ public class PerimeterAssignmentRunner {
     PerimeterAssignmentRunner pr = new PerimeterAssignmentRunner();
     pr.testPerimeter();
   }
+
 }
