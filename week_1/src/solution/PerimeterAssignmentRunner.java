@@ -56,14 +56,37 @@ public class PerimeterAssignmentRunner {
   }
 
   public double getLargestPerimeterMultipleFiles() {
-    //
-    return 0.0;
+    FileResource fr;
+    Shape s;
+    double perimeter;
+    double maxPerimeter = -1.0;
+    DirectoryResource dr = new DirectoryResource();
+    for (File f : dr.selectedFiles()) {
+      fr = new FileResource(f);
+      s = new Shape(fr);
+      if ((perimeter = getPerimeter(s)) > maxPerimeter) {
+        maxPerimeter = perimeter;
+      }
+    }
+    return maxPerimeter;
   }
 
   public String getFileWithLargestPerimeter() {
-    // File temp = null; // replace this code
-    // return temp.getName();
-    return "";
+    String fileName = "";
+    FileResource fr;
+    Shape s;
+    double perimeter;
+    double maxPerimeter = -1.0;
+    DirectoryResource dr = new DirectoryResource();
+    for (File f : dr.selectedFiles()) {
+      fr = new FileResource(f);
+      s = new Shape(fr);
+      if ((perimeter = getPerimeter(s)) > maxPerimeter) {
+        fileName = f.getName();
+        maxPerimeter = perimeter;
+      }
+    }
+    return fileName;
   }
 
   public void testPerimeter() {
@@ -87,11 +110,13 @@ public class PerimeterAssignmentRunner {
   }
 
   public void testPerimeterMultipleFiles() {
-    // Put code here
+    double largestPerimeter = getLargestPerimeterMultipleFiles();
+    System.out.println("largest perimeter = " + largestPerimeter);
   }
 
   public void testFileWithLargestPerimeter() {
-    // Put code here
+    String fileWithLargestPerimeter = getFileWithLargestPerimeter();
+    System.out.println("file with largest perimeter: " + fileWithLargestPerimeter);
   }
 
   // This method creates a triangle that you can use to test your other methods
@@ -118,7 +143,9 @@ public class PerimeterAssignmentRunner {
 
   public static void main(String[] args) {
     PerimeterAssignmentRunner pr = new PerimeterAssignmentRunner();
-    pr.testPerimeter();
+    // pr.testPerimeter();
+    // pr.testPerimeterMultipleFiles();
+    pr.testFileWithLargestPerimeter();
   }
 
 }
