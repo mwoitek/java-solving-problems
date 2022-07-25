@@ -1,5 +1,7 @@
 package solution_second;
 
+import edu.duke.FileResource;
+
 public class Part3 {
 
   public int findStopCodon(String dna, int startIndex, String stopCodon) {
@@ -73,7 +75,10 @@ public class Part3 {
 
   public static void main(String[] args) {
     Part3 p3 = new Part3();
-    p3.testCountGenes();
+    // p3.testCountGenes();
+    FileResource fr = new FileResource("../data/dna/GRch38dnapart.fa");
+    String dna = fr.asString();
+    System.out.println("count = " + p3.countGenes(dna));
   }
 
 }

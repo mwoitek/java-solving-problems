@@ -56,7 +56,7 @@ public class Part3 {
     // genes.add("ATGTGA");
     // processGenes(genes);
 
-    FileResource fr = new FileResource("../data/dna/brca1line.fa");
+    FileResource fr = new FileResource("../data/dna/GRch38dnapart.fa");
     String dna = fr.asString();
     Part1 p1 = new Part1();
     StorageResource genes = p1.getAllGenes(dna);

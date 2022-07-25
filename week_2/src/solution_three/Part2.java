@@ -1,5 +1,7 @@
 package solution_three;
 
+import edu.duke.FileResource;
+
 public class Part2 {
 
   public double cgRatio(String dna) {
@@ -33,14 +35,18 @@ public class Part2 {
   public static void main(String[] args) {
     Part2 p2 = new Part2();
 
-    String dna = "ATGCCATAG";
-    System.out.println("dna = " + dna);
-    System.out.println("cgRatio = " + p2.cgRatio(dna));
-    System.out.println();
+    // String dna = "ATGCCATAG";
+    // System.out.println("dna = " + dna);
+    // System.out.println("cgRatio = " + p2.cgRatio(dna));
+    // System.out.println();
 
-    dna = "cccctgtttctgaaactgggg";
-    System.out.println("dna = " + dna);
-    System.out.println("countCTG = " + p2.countCTG(dna)); // 3
+    // dna = "cccctgtttctgaaactgggg";
+    // System.out.println("dna = " + dna);
+    // System.out.println("countCTG = " + p2.countCTG(dna)); // 3
+
+    FileResource fr = new FileResource("../data/dna/GRch38dnapart.fa");
+    String dna = fr.asString();
+    System.out.println("countCTG = " + p2.countCTG(dna));
   }
 
 }
