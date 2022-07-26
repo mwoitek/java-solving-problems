@@ -119,16 +119,70 @@ public class ParsingWeatherData {
         + lowestHumidity.get("DateUTC"));
   }
 
-  // HERE
+  public double averageTemperatureInFile(CSVParser parser) {
+    double sum = 0.0;
+    int count = 0;
+    double temperature;
+    for (CSVRecord record : parser) {
+      temperature = Double.parseDouble(record.get("TemperatureF"));
+      if (temperature > ABSOLUTE_ZERO) {
+        sum += temperature;
+        count++;
+      }
+    }
+    return sum / count;
+  }
+
+  public void testAverageTemperatureInFile() {
+    FileResource fr = new FileResource("../data/nc_weather/2014/weather-2014-01-20.csv");
+    System.out.println(
+        "Average temperature in file is " + averageTemperatureInFile(fr.getCSVParser()));
+  }
+
+  public double averageTemperatureWithHighHumidityInFile(CSVParser parser, int value) {
+    double sum = 0.0;
+    int count = 0;
+    String humidityStr;
+    double humidityDbl;
+    double temperature;
+    for (CSVRecord record : parser) {
+      humidityStr = record.get("Humidity");
+      if (humidityStr.equals("N/A")) {
+        continue;
+      }
+      humidityDbl = Double.parseDouble(humidityStr);
+      temperature = Double.parseDouble(record.get("TemperatureF"));
+      if (humidityDbl >= value && temperature > ABSOLUTE_ZERO) {
+        sum += temperature;
+        count++;
+      }
+    }
+    if (count > 0) {
+      return sum / count;
+    }
+    return -Double.MAX_VALUE;
+  }
+
+  public void testAverageTemperatureWithHighHumidityInFile() {
+    FileResource fr = new FileResource("../data/nc_weather/2014/weather-2014-03-20.csv");
+    double averageTemperature =
+        averageTemperatureWithHighHumidityInFile(fr.getCSVParser(), 80);
+    if (averageTemperature > ABSOLUTE_ZERO) {
+      System.out
+          .println("Average temperature when high humidity is " + averageTemperature);
+    } else {
+      System.out.println("No temperatures with that humidity");
+    }
+  }
 
   public static void main(String[] args) {
     ParsingWeatherData pwd = new ParsingWeatherData();
     // pwd.testColdestHourInFile();
     // pwd.testFileWithColdestTemperature();
     // pwd.testLowestHumidityInFile();
-    pwd.testLowestHumidityInManyFiles();
-
-    //
+    // pwd.testLowestHumidityInManyFiles();
+    // pwd.testAverageTemperatureInFile();
+    pwd.testAverageTemperatureWithHighHumidityInFile();
   }
 
 }
