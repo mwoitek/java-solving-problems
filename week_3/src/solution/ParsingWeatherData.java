@@ -88,7 +88,7 @@ public class ParsingWeatherData {
   }
 
   public void testLowestHumidityInFile() {
-    FileResource fr = new FileResource("../data/nc_weather/2014/weather-2014-01-20.csv");
+    FileResource fr = new FileResource("../data/nc_weather/2014/weather-2014-07-22.csv");
     CSVRecord lowestHumidity = lowestHumidityInFile(fr.getCSVParser());
     System.out.println("Lowest humidity was " + lowestHumidity.get("Humidity") + " at "
         + lowestHumidity.get("DateUTC"));
@@ -134,7 +134,7 @@ public class ParsingWeatherData {
   }
 
   public void testAverageTemperatureInFile() {
-    FileResource fr = new FileResource("../data/nc_weather/2014/weather-2014-01-20.csv");
+    FileResource fr = new FileResource("../data/nc_weather/2013/weather-2013-08-10.csv");
     System.out.println(
         "Average temperature in file is " + averageTemperatureInFile(fr.getCSVParser()));
   }
@@ -164,7 +164,7 @@ public class ParsingWeatherData {
   }
 
   public void testAverageTemperatureWithHighHumidityInFile() {
-    FileResource fr = new FileResource("../data/nc_weather/2014/weather-2014-03-20.csv");
+    FileResource fr = new FileResource("../data/nc_weather/2013/weather-2013-09-02.csv");
     double averageTemperature =
         averageTemperatureWithHighHumidityInFile(fr.getCSVParser(), 80);
     if (averageTemperature > ABSOLUTE_ZERO) {

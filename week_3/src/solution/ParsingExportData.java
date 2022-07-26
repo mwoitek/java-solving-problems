@@ -58,7 +58,7 @@ public class ParsingExportData {
   }
 
   public void tester() {
-    FileResource fr = new FileResource("../data/exports/exports_small.csv");
+    FileResource fr = new FileResource("../data/exports/exportdata.csv");
 
     CSVParser parser = fr.getCSVParser();
     String country = "Germany";
@@ -67,21 +67,21 @@ public class ParsingExportData {
     System.out.println();
 
     parser = fr.getCSVParser();
-    String exportItem1 = "gold";
-    String exportItem2 = "diamonds";
+    String exportItem1 = "cotton";
+    String exportItem2 = "flowers";
     System.out.println("exportItem1 = " + exportItem1);
     System.out.println("exportItem2 = " + exportItem2);
     listExportersTwoProducts(parser, exportItem1, exportItem2);
     System.out.println();
 
     parser = fr.getCSVParser();
-    String exportItem = "gold";
+    String exportItem = "cocoa";
     System.out.println("exportItem = " + exportItem);
     System.out.println("number of exporters = " + numberOfExporters(parser, exportItem));
     System.out.println();
 
     parser = fr.getCSVParser();
-    String amount = "$999,999,999";
+    String amount = "$999,999,999,999";
     System.out.println("amount = " + amount);
     bigExporters(parser, amount);
   }
