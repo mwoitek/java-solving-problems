@@ -69,16 +69,64 @@ public class ParsingWeatherData {
     }
   }
 
+  public CSVRecord lowestHumidityInFile(CSVParser parser) {
+    CSVRecord lowestHumidity = null;
+    String humidityStr;
+    double humidityDbl;
+    double minHumidity = Double.MAX_VALUE;
+    for (CSVRecord record : parser) {
+      humidityStr = record.get("Humidity");
+      if (humidityStr.equals("N/A")) {
+        continue;
+      }
+      if ((humidityDbl = Double.parseDouble(humidityStr)) < minHumidity) {
+        lowestHumidity = record;
+        minHumidity = humidityDbl;
+      }
+    }
+    return lowestHumidity;
+  }
+
+  public void testLowestHumidityInFile() {
+    FileResource fr = new FileResource("../data/nc_weather/2014/weather-2014-01-20.csv");
+    CSVRecord lowestHumidity = lowestHumidityInFile(fr.getCSVParser());
+    System.out.println("Lowest humidity was " + lowestHumidity.get("Humidity") + " at "
+        + lowestHumidity.get("DateUTC"));
+  }
+
+  public CSVRecord lowestHumidityInManyFiles() {
+    CSVRecord lowestHumidity = null;
+    CSVRecord lowestHumidityFile;
+    double humidity;
+    double minHumidity = Double.MAX_VALUE;
+    FileResource fr;
+    DirectoryResource dr = new DirectoryResource();
+    for (File f : dr.selectedFiles()) {
+      fr = new FileResource(f);
+      lowestHumidityFile = lowestHumidityInFile(fr.getCSVParser());
+      humidity = Double.parseDouble(lowestHumidityFile.get("Humidity"));
+      if (humidity < minHumidity) {
+        lowestHumidity = lowestHumidityFile;
+        minHumidity = humidity;
+      }
+    }
+    return lowestHumidity;
+  }
+
+  public void testLowestHumidityInManyFiles() {
+    CSVRecord lowestHumidity = lowestHumidityInManyFiles();
+    System.out.println("Lowest humidity was " + lowestHumidity.get("Humidity") + " at "
+        + lowestHumidity.get("DateUTC"));
+  }
+
   // HERE
 
   public static void main(String[] args) {
     ParsingWeatherData pwd = new ParsingWeatherData();
-
-    pwd.testColdestHourInFile();
-    System.out.println();
-
-    pwd.testFileWithColdestTemperature();
-    // System.out.println();
+    // pwd.testColdestHourInFile();
+    // pwd.testFileWithColdestTemperature();
+    // pwd.testLowestHumidityInFile();
+    pwd.testLowestHumidityInManyFiles();
 
     //
   }
