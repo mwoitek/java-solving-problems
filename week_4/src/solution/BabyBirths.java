@@ -76,10 +76,61 @@ public class BabyBirths {
     System.out.println("rank = " + getRank(year, name, gender));
   }
 
+  public String getName(int year, int rank, String gender) {
+    String name = "";
+    int currentRank = 1;
+    FileResource fr = new FileResource("../data/baby_names/yob" + year + ".csv");
+    for (CSVRecord record : fr.getCSVParser(false)) {
+      if (record.get(1).equals(gender)) {
+        if (currentRank == rank) {
+          name = record.get(0);
+          break;
+        }
+        currentRank++;
+      }
+    }
+    if (currentRank == rank) {
+      return name;
+    }
+    return "NO NAME";
+  }
+
+  public void testGetName() {
+    int year = 2012;
+    int rank = 2;
+    String gender = "M";
+    System.out.println("year = " + year + ", rank = " + rank + ", gender = " + gender);
+    System.out.println("name = " + getName(year, rank, gender));
+
+    year = 1997;
+    rank = 4;
+    gender = "F";
+    System.out.println("year = " + year + ", rank = " + rank + ", gender = " + gender);
+    System.out.println("name = " + getName(year, rank, gender));
+
+    year = 1997;
+    rank = Integer.MAX_VALUE;
+    gender = "F";
+    System.out.println("year = " + year + ", rank = " + rank + ", gender = " + gender);
+    System.out.println("name = " + getName(year, rank, gender));
+  }
+
+  public void whatIsNameInYear(String name, int year, int newYear, String gender) {
+    int rank = getRank(year, name, gender);
+    String newName = getName(newYear, rank, gender);
+    String pronoun = gender.equals("F") ? "she" : "he";
+    System.out.println(name + " born in " + year + " would be " + newName + " if "
+        + pronoun + " was born in " + newYear + ".");
+  }
+
+  // HERE
+
   public static void main(String[] args) {
     BabyBirths bb = new BabyBirths();
     // bb.testTotalBirths();
-    bb.testGetRank();
+    // bb.testGetRank();
+    // bb.testGetName();
+    bb.whatIsNameInYear("Isabella", 2012, 2014, "F");
   }
 
 }
