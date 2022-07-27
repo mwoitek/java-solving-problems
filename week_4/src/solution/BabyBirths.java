@@ -1,6 +1,8 @@
 package solution;
 
+import java.io.File;
 import org.apache.commons.csv.CSVRecord;
+import edu.duke.DirectoryResource;
 import edu.duke.FileResource;
 
 public class BabyBirths {
@@ -123,6 +125,84 @@ public class BabyBirths {
         + pronoun + " was born in " + newYear + ".");
   }
 
+  public int getYearFromFileName(File f) {
+    String fileName = f.getName();
+    int idxBegin = fileName.indexOf("b") + 1;
+    int idxEnd = fileName.indexOf(".");
+    return Integer.parseInt(fileName.substring(idxBegin, idxEnd));
+  }
+
+  public int yearOfHighestRank(String name, String gender) {
+    int currentYear;
+    int year = -1;
+    int rank;
+    int maxRank = Integer.MAX_VALUE;
+    DirectoryResource dr = new DirectoryResource();
+    for (File f : dr.selectedFiles()) {
+      currentYear = getYearFromFileName(f);
+      rank = getRank(currentYear, name, gender);
+      if (rank != -1 && rank < maxRank) {
+        year = currentYear;
+        maxRank = rank;
+      }
+    }
+    return year;
+  }
+
+  public void testYearOfHighestRank() {
+    String name = "Mason";
+    String gender = "M";
+    System.out.println("name = " + name + ", gender = " + gender);
+    System.out.println("year = " + yearOfHighestRank(name, gender));
+
+    name = "Emma";
+    gender = "F";
+    System.out.println("name = " + name + ", gender = " + gender);
+    System.out.println("year = " + yearOfHighestRank(name, gender));
+
+    name = "xxxx";
+    gender = "F";
+    System.out.println("name = " + name + ", gender = " + gender);
+    System.out.println("year = " + yearOfHighestRank(name, gender));
+  }
+
+  public double getAverageRank(String name, String gender) {
+    int sum = 0;
+    int count = 0;
+    int year;
+    int rank;
+    DirectoryResource dr = new DirectoryResource();
+    for (File f : dr.selectedFiles()) {
+      year = getYearFromFileName(f);
+      rank = getRank(year, name, gender);
+      if (rank != -1) {
+        sum += rank;
+        count++;
+      }
+    }
+    if (count > 0) {
+      return (double) sum / count;
+    }
+    return -1.0;
+  }
+
+  public void testGetAverageRank() {
+    String name = "Mason";
+    String gender = "M";
+    System.out.println("name = " + name + ", gender = " + gender);
+    System.out.println("average rank = " + getAverageRank(name, gender));
+
+    name = "Jacob";
+    gender = "M";
+    System.out.println("name = " + name + ", gender = " + gender);
+    System.out.println("average rank = " + getAverageRank(name, gender));
+
+    name = "xxxx";
+    gender = "F";
+    System.out.println("name = " + name + ", gender = " + gender);
+    System.out.println("average rank = " + getAverageRank(name, gender));
+  }
+
   // HERE
 
   public static void main(String[] args) {
@@ -130,7 +210,9 @@ public class BabyBirths {
     // bb.testTotalBirths();
     // bb.testGetRank();
     // bb.testGetName();
-    bb.whatIsNameInYear("Isabella", 2012, 2014, "F");
+    // bb.whatIsNameInYear("Isabella", 2012, 2014, "F");
+    // bb.testYearOfHighestRank();
+    bb.testGetAverageRank();
   }
 
 }
