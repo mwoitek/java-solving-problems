@@ -203,7 +203,28 @@ public class BabyBirths {
     System.out.println("average rank = " + getAverageRank(name, gender));
   }
 
-  // HERE
+  public int getTotalBirthsRankedHigher(int year, String name, String gender) {
+    int numBirths = 0;
+    FileResource fr = new FileResource("../data/baby_names/yob" + year + ".csv");
+    for (CSVRecord record : fr.getCSVParser(false)) {
+      if (record.get(1).equals(gender)) {
+        if (record.get(0).equals(name)) {
+          break;
+        }
+        numBirths += Integer.parseInt(record.get(2));
+      }
+    }
+    return numBirths;
+  }
+
+  public void testGetTotalBirthsRankedHigher() {
+    int year = 2012;
+    String name = "Ethan";
+    String gender = "M";
+    System.out.println("year = " + year + ", name = " + name + ", gender = " + gender);
+    System.out.println(
+        "total number of births = " + getTotalBirthsRankedHigher(year, name, gender));
+  }
 
   public static void main(String[] args) {
     BabyBirths bb = new BabyBirths();
@@ -212,7 +233,8 @@ public class BabyBirths {
     // bb.testGetName();
     // bb.whatIsNameInYear("Isabella", 2012, 2014, "F");
     // bb.testYearOfHighestRank();
-    bb.testGetAverageRank();
+    // bb.testGetAverageRank();
+    bb.testGetTotalBirthsRankedHigher();
   }
 
 }
