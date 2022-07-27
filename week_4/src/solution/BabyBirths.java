@@ -35,7 +35,7 @@ public class BabyBirths {
   }
 
   public void testTotalBirths() {
-    FileResource fr = new FileResource("../data/baby_names/example-small.csv");
+    FileResource fr = new FileResource("../data/baby_names/yob1905.csv");
     totalBirths(fr);
   }
 
@@ -59,14 +59,14 @@ public class BabyBirths {
   }
 
   public void testGetRank() {
-    int year = 2012;
-    String name = "Mason";
+    int year = 1971;
+    String name = "Frank";
     String gender = "M";
     System.out.println("year = " + year + ", name = " + name + ", gender = " + gender);
     System.out.println("rank = " + getRank(year, name, gender));
 
-    year = 1997;
-    name = "Sarah";
+    year = 1960;
+    name = "Emily";
     gender = "F";
     System.out.println("year = " + year + ", name = " + name + ", gender = " + gender);
     System.out.println("rank = " + getRank(year, name, gender));
@@ -98,14 +98,14 @@ public class BabyBirths {
   }
 
   public void testGetName() {
-    int year = 2012;
-    int rank = 2;
+    int year = 1982;
+    int rank = 450;
     String gender = "M";
     System.out.println("year = " + year + ", rank = " + rank + ", gender = " + gender);
     System.out.println("name = " + getName(year, rank, gender));
 
-    year = 1997;
-    rank = 4;
+    year = 1980;
+    rank = 350;
     gender = "F";
     System.out.println("year = " + year + ", rank = " + rank + ", gender = " + gender);
     System.out.println("name = " + getName(year, rank, gender));
@@ -150,20 +150,20 @@ public class BabyBirths {
   }
 
   public void testYearOfHighestRank() {
-    String name = "Mason";
+    String name = "Mich";
     String gender = "M";
     System.out.println("name = " + name + ", gender = " + gender);
     System.out.println("year = " + yearOfHighestRank(name, gender));
 
-    name = "Emma";
+    name = "Genevieve";
     gender = "F";
     System.out.println("name = " + name + ", gender = " + gender);
     System.out.println("year = " + yearOfHighestRank(name, gender));
 
-    name = "xxxx";
-    gender = "F";
-    System.out.println("name = " + name + ", gender = " + gender);
-    System.out.println("year = " + yearOfHighestRank(name, gender));
+    // name = "xxxx";
+    // gender = "F";
+    // System.out.println("name = " + name + ", gender = " + gender);
+    // System.out.println("year = " + yearOfHighestRank(name, gender));
   }
 
   public double getAverageRank(String name, String gender) {
@@ -187,20 +187,20 @@ public class BabyBirths {
   }
 
   public void testGetAverageRank() {
-    String name = "Mason";
-    String gender = "M";
+    String name = "Susan";
+    String gender = "F";
     System.out.println("name = " + name + ", gender = " + gender);
     System.out.println("average rank = " + getAverageRank(name, gender));
 
-    name = "Jacob";
+    name = "Robert";
     gender = "M";
     System.out.println("name = " + name + ", gender = " + gender);
     System.out.println("average rank = " + getAverageRank(name, gender));
 
-    name = "xxxx";
-    gender = "F";
-    System.out.println("name = " + name + ", gender = " + gender);
-    System.out.println("average rank = " + getAverageRank(name, gender));
+    // name = "xxxx";
+    // gender = "F";
+    // System.out.println("name = " + name + ", gender = " + gender);
+    // System.out.println("average rank = " + getAverageRank(name, gender));
   }
 
   public int getTotalBirthsRankedHigher(int year, String name, String gender) {
@@ -218,9 +218,16 @@ public class BabyBirths {
   }
 
   public void testGetTotalBirthsRankedHigher() {
-    int year = 2012;
-    String name = "Ethan";
-    String gender = "M";
+    int year = 1990;
+    String name = "Emily";
+    String gender = "F";
+    System.out.println("year = " + year + ", name = " + name + ", gender = " + gender);
+    System.out.println(
+        "total number of births = " + getTotalBirthsRankedHigher(year, name, gender));
+
+    year = 1990;
+    name = "Drew";
+    gender = "M";
     System.out.println("year = " + year + ", name = " + name + ", gender = " + gender);
     System.out.println(
         "total number of births = " + getTotalBirthsRankedHigher(year, name, gender));
@@ -231,7 +238,8 @@ public class BabyBirths {
     // bb.testTotalBirths();
     // bb.testGetRank();
     // bb.testGetName();
-    // bb.whatIsNameInYear("Isabella", 2012, 2014, "F");
+    // bb.whatIsNameInYear("Susan", 1972, 2014, "F");
+    // bb.whatIsNameInYear("Owen", 1974, 2014, "M");
     // bb.testYearOfHighestRank();
     // bb.testGetAverageRank();
     bb.testGetTotalBirthsRankedHigher();
